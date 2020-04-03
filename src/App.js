@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles } from '@material-ui/core/styles';
+import RouterConstant from './Routes/routes';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -47,7 +49,7 @@ function App({ children }) {
         <Grid item xs={12}>
           <AppBar className={classes.appBar}>
             <Toolbar className={classes.toolbar}>
-              <Link className={classes.appLinkColor} to="/">
+              <Link className={classes.appLinkColor} to={`/${RouterConstant.ENTRY}${RouterConstant.LANDING}`}>
                 <Typography variant="h6" className={classes.title}>Documentation</Typography>
               </Link>
           </Toolbar>
