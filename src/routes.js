@@ -1,5 +1,5 @@
 export default {
-    ENTRY:"dashboard",
+    ENTRY:"developer",
     LANDING:"/documentation",
     INTRO:"/intro",
     GUIDE:"/guide",

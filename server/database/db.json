@@ -1,0 +1,58 @@
+{
+  "documentation": [
+    {
+      "id": 1,
+      "title": "Twilio Docs",
+      "description": "Another oft-cited favorite of developers is the Twilio docs. The Twilio Docs use the same, two-panel style as the Stripe API Reference (which we’re a fan of). However, Twilio’s API documentation feels a little easier on the eyes, with a well-chosen font and bright, contrasting links. It shouldn’t need mentioning that there are plenty of code snippets which you can copy and paste over right away.",
+      "links": ["Intro", "Developers Guide", "API Reference" ]
+    },
+    {
+      "id": 2,
+      "title": "Dropbox API Documentation",
+      "description": "The Dropbox API documentation is yet another fantastic example of excellent reference documentation. Instead of using the same two-panel design as other contenders on this list, Dropbox gets you to choose your programming language of choice first, and then provides tailored documentation for that language.",
+      "links": ["Intro", "Developers Guide", "API Reference" ]
+    },
+    {
+      "id": 3,
+      "title": "GitHub API Documentation",
+      "description": "The documentation for GitHub’s REST API is also praised frequently by developers. Just like Dropbox, Github’s docs aren’t trying to put too much information on one page. The simple menu at the top-right directs developers in the right general direction, with links to reference material, guides, and libraries, and then it’s down to well-ordered, blog post-esque articles to direct developers from there.",
+      "links": ["Intro", "Developers Guide", "API Reference" ]
+    },
+    {
+      "id": 4,
+      "title": "Twitter API Documentation",
+      "description": "Although it may not be as popular an example as the others on this list, the Twitter API documentation is one of my personal favorites on a visual level. The single container design, like with Dropbox and GitHub, directs all your attention to one place. However, the Twitter API docs feel less like a mundane blog post, and more like an interactive guide — there’s a quick note of how many minutes’ read the page is, you can switch between different methods within the post, and the concluding “Next Steps” heading is always pointing you in the right direction.",
+      "links": ["Intro", "Developers Guide", "API Reference" ]
+    },
+    {
+      "id": 5,
+      "title": "Google API Documentation",
+      "description": "The Twitter API docs have a FAQ (Frequently Asked Questions) section for almost every page. Instead of bundling too much secret information into the main explanation, all the most common questions are in those FAQ pages. Personally, I love working with a FAQ where I know I can find answers to my inevitable questions.",
+      "links": ["Intro", "Developers Guide", "API Reference" ]
+    },
+    {
+      "id": 6,
+      "title": "Redundant Connections",
+      "description": "A redundant connection simply allows you to establish more than one simultaneous connection to the data stream. This provides redundancy by allowing you to connect to the same stream with two separate consumers, receiving the same data through both connections. Thus, your app has a hot failover for various situations, e.g. where one stream is disconnected or where your app’s primary server fails.",
+      "links": ["Intro", "Developers Guide", "API Reference"]
+    },
+    {
+      "id": 7,
+      "title": "Twitter API Documentation",
+      "description": "Although it may not be as popular an example as the others on this list, the Twitter API documentation is one of my personal favorites on a visual level. The single container design, like with Dropbox and GitHub, directs all your attention to one place. However, the Twitter API docs feel less like a mundane blog post, and more like an interactive guide — there’s a quick note of how many minutes’ read the page is, you can switch between different methods within the post, and the concluding “Next Steps” heading is always pointing you in the right direction.",
+      "links": ["Intro", "Developers Guide", "API Reference" ]
+    },
+    {
+      "id": 8,
+      "title": "Google API Documentation",
+      "description": "The Twitter API docs have a FAQ (Frequently Asked Questions) section for almost every page. Instead of bundling too much secret information into the main explanation, all the most common questions are in those FAQ pages. Personally, I love working with a FAQ where I know I can find answers to my inevitable questions.",
+      "links": ["Intro", "Developers Guide", "API Reference" ]
+    },
+    {
+      "id": 9,
+      "title": "Redundant Connections",
+      "description": "A redundant connection simply allows you to establish more than one simultaneous connection to the data stream. This provides redundancy by allowing you to connect to the same stream with two separate consumers, receiving the same data through both connections. Thus, your app has a hot failover for various situations, e.g. where one stream is disconnected or where your app’s primary server fails.",
+      "links": ["Intro", "Developers Guide", "API Reference"]
+    }
+  ]
+}
