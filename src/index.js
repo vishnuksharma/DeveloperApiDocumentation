@@ -1,30 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Redirect } from '@reach/router'
-
-import './index.css';
-import App from './App';
-import routes from "./routes"
-import LandingPage from './Landing/LandingPage';
-import APIIntro from './Intro/Intro';
-import APIComponent from './Intro/APIComponent';
-import GuideComponent from './Guide/Guide.component';
-import ReferenceComponent from './Reference/Reference.component';
+import store from './store';
+import Route from './Routes/Route'
+import { Provider } from 'react-redux'
 
 ReactDOM.render(
-  <Router>
-    <Redirect from="/" to={`${routes.ENTRY}${routes.LANDING}`} noThrow />
-    <App path={routes.ENTRY}>
-      <LandingPage path={routes.LANDING} />
-      <APIComponent path={routes.API_PATH}>
-        <APIIntro path={routes.INTRO} />
-        <GuideComponent path={routes.GUIDE} />
-        <ReferenceComponent path={routes.REFERENCE} />
-      </APIComponent>
-
-    </App>
-  </Router>
-  ,
+  <Provider store={store}>
+    <Route />
+  </Provider>,
   document.getElementById('root')
 );
 

@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Grid } from '@material-ui/core';
+import CardComponent from '../CardLayout/Card.component';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,11 +28,45 @@ const LandingPage = () =>{
     const classes = useStyles();
     return(
         <div className={classes.root}>
-            <AppBar className={classes.appBar}>
-                <Toolbar>
-                <Typography variant="h6" className={classes.title}>Documentation</Typography>
-                </Toolbar>
-            </AppBar>
+              <Grid container>
+                <Grid item xs={12} sm={6} md={4} lg={4}>
+                  <CardComponent />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={4}>
+                  <CardComponent />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={4}>
+                  <CardComponent />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={4}>
+                  <CardComponent />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={4}>
+                  <CardComponent />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={4}>
+                  <CardComponent />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={4}>
+                  <CardComponent />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={4}>
+                  <CardComponent />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={4}>
+                  <CardComponent />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={4}>
+                  <CardComponent />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={4}>
+                  <CardComponent />
+                </Grid>
+
+                <Grid item xs={12} sm={6} md={4} lg={4}>
+                  <CardComponent />
+                </Grid>
+              </Grid>
             </div>
     )
 }
