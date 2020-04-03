@@ -1,13 +1,19 @@
 import { createSelector } from 'reselect';
 
-const getSelectedTabStore = state => state.globalStates.selectedTab;
-export const getSelectedTabState = createSelector(
-  [getSelectedTabStore],
-  selectedTab => selectedTab,
+const getDocumentationListStore = state => state.apiDocumentation.documentationList;
+export const getDocumentationListState = createSelector(
+  [getDocumentationListStore],
+  documentationList => documentationList,
 );
 
-const getTableListStore = state => state.globalStates.tableData;
-export const getTableListState = createSelector(
-  [getTableListStore],
-  tableData => tableData,
+const getDocByIdDataStore = state => state.apiDocumentation.docByIdData;
+export const getDocByIdDataState = createSelector(
+  [getDocByIdDataStore],
+  docByIdData => docByIdData,
+);
+
+const getIsDataLoadingStote = state => state.apiDocumentation.isDataLoading
+export const getIsDataLoading = createSelector(
+  [getIsDataLoadingStote],
+  isDataLoading => isDataLoading,
 );

@@ -4,21 +4,38 @@ const server = jsonServer.create();
 
 const db = require("./database/db.json");
 const middlewares = jsonServer.defaults();
-const port = process.env.PORT || 4001;
+const port = process.env.PORT || 4009;
 
 // middleware
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
-server.get('/api/table/list', (req, res) => {
+server.get('/api/developer/documentation', (req, res) => {
     // req.body;
-    // console.log(db)
-    res.json(db.DocumentData);
+    try {
+      res.status(200).json(db.documentation);
+    } catch (error) {
+      res.status(300).json(error);
+    }
 });
 
-server.get("/api/table/list/count", (req, res) => {
-    const listCount = db.DocumentData.length;
-      res.json({count:listCount});
+server.get("/api/developer/intro/:id", (req, res) => {
+    // console.log(req.params);
+    const { id } = req.params;
+    const record = db.documentation.find(item => String(item.id) === id);
+    res.status(200).json({...record});
+});
+server.get("/api/developer/guide/:id", (req, res) => {
+    // console.log(req.params);
+    const { id } = req.params;
+    const record = db.documentation.find(item => String(item.id) === id);
+    res.status(200).json({...record});
+});
+server.get("/api/developer/reference/:id", (req, res) => {
+    // console.log(req.params);
+    const { id } = req.params;
+    const record = db.documentation.find(item => String(item.id) === id);
+    res.status(200).json({...record});
 });
 
 // server.use(router);

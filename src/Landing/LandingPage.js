@@ -1,74 +1,90 @@
-import React from 'react';
+import React, { memo, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import { Grid } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { Grid, Typography, Box } from '@material-ui/core';
 import CardComponent from '../CardLayout/Card.component';
+
+import { getDocumentationListState, getIsDataLoading } from '../models/selectors'
+import { LANDINGPAGE_HEADING, LANDINGPAGE_DESC } from '../constant';
+import LoadingComponent from '../Loading/Loading.component';
 
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
+      maxWidth: '80%',
+      margin: '0 auto',
+      [theme.breakpoints.down("sm")]: {
+        maxWidth: '100%',
+        margin: '20px',
+      }
     },
-    appBar: {
-      backgroundColor: '#1976d2',
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-      textTransform: 'uppercase',
+    cardMargin: {
+      margin: theme.spacing(2),
     },
   }));
-const LandingPage = () =>{
-    const classes = useStyles();
+const LandingPage = props =>{
+  const classes = useStyles();
+    const {
+      isDataLoading,
+      getDocumentListData,
+      documentList,
+    } = props;
+  useEffect(() => {
+    getDocumentListData();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const getCardlayout = () => {
+    return (documentList || []).map(item => {
+      return(
+        <Grid key={item.id} item xs={12} sm={6} md={4} lg={4}>
+          <CardComponent {...props} cardData={item} />
+        </Grid>
+      )
+    })
+  }
     return(
         <div className={classes.root}>
               <Grid container>
-                <Grid item xs={12} sm={6} md={4} lg={4}>
-                  <CardComponent />
+                <Grid item xs={12}>
+                  <Box py={5}>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {LANDINGPAGE_HEADING}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    {LANDINGPAGE_DESC}
+                  </Typography>
+                  </Box>
                 </Grid>
-                <Grid item xs={12} sm={6} md={4} lg={4}>
-                  <CardComponent />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4} lg={4}>
-                  <CardComponent />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4} lg={4}>
-                  <CardComponent />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4} lg={4}>
-                  <CardComponent />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4} lg={4}>
-                  <CardComponent />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4} lg={4}>
-                  <CardComponent />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4} lg={4}>
-                  <CardComponent />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4} lg={4}>
-                  <CardComponent />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4} lg={4}>
-                  <CardComponent />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4} lg={4}>
-                  <CardComponent />
-                </Grid>
-
-                <Grid item xs={12} sm={6} md={4} lg={4}>
-                  <CardComponent />
+                <Grid container spacing={2}>
+                  {isDataLoading ? (
+                    <LoadingComponent />
+                    ) : (
+                    getCardlayout()
+                  )}
                 </Grid>
               </Grid>
             </div>
     )
 }
 
-export default LandingPage;
+LandingPage.propTypes = {
+}
+
+LandingPage.defaultProps = {
+}
+
+const mapState = state => {
+  return {
+    documentList: getDocumentationListState(state),
+    isDataLoading: getIsDataLoading(state),
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  const { apiDocumentation: { getDocumentListData } } = dispatch;
+  return {
+    getDocumentListData,
+  };
+};
+
+export default connect(mapState, mapDispatch)(memo(LandingPage));

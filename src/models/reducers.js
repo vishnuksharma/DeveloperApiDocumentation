@@ -1,24 +1,28 @@
-import { TAB_ENUM } from "../components/Utilies/utility";
-
 const INITIAL_STATE = {
-  selectedTab: TAB_ENUM.RFQ,
-  tableData: [],
+  isDataLoading: false,
+  documentationList: [],
+  docByIdData: {},
 }
 
-const setSelectedTabStore = (state, selectedTab) => ({
+const setDocumentationListStore = (state, documentationList) => ({
   ...state,
-  selectedTab,
+  documentationList,
 });
 
-const setTableDataListStore = (state, tableData) => ({
+const setDocByIdDataStore = (state, docByIdData) => ({
   ...state,
-  tableData,
+  docByIdData,
+});
+const setIsDataLoading = (state, isDataLoading) => ({
+  ...state,
+  isDataLoading,
 });
 
 export default {
   initialState: INITIAL_STATE,
   reducers: {
-    setSelectedTabStore,
-    setTableDataListStore,
+    setDocumentationListStore,
+    setDocByIdDataStore,
+    setIsDataLoading,
   },
 };

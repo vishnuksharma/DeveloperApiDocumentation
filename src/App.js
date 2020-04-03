@@ -1,5 +1,6 @@
 import React from 'react';
-import { navigate } from '@reach/router';
+// import { navigate } from '@reach/router';
+import { Link } from "@reach/router"
 import { Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
@@ -20,17 +21,35 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'uppercase',
   },
   offset: theme.mixins.toolbar,
+  appContainer: {
+    backgroundColor: '#e5e4e6',
+    minHeight: '100vh',
+  },
+  appLinkColor: {
+    color: '#fff',
+    textDecoration: 'none',
+  },
+  toolbar: {
+    width: '80%',
+    margin: '0 auto',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      
+    }
+  }
 }));
 
 function App({ children }) {
   const classes = useStyles();
   return (
-    <div className="App">
+    <div className={classes.appContainer}>
       <Grid container>
         <Grid item xs={12}>
           <AppBar className={classes.appBar}>
-            <Toolbar>
-            <Typography variant="h6" className={classes.title}>Documentation</Typography>
+            <Toolbar className={classes.toolbar}>
+              <Link className={classes.appLinkColor} to="/">
+                <Typography variant="h6" className={classes.title}>Documentation</Typography>
+              </Link>
           </Toolbar>
         </AppBar>
         <div className={classes.offset} />
