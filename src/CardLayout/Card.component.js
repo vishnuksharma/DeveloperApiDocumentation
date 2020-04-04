@@ -7,7 +7,9 @@ import CardContent from '@material-ui/core/CardContent';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import CardHeader from '@material-ui/core/CardHeader';
 import { Divider } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles((theme) =>({
   root: {
@@ -29,6 +31,9 @@ const useStyles = makeStyles((theme) =>({
   },
   marginLeftAuto: {
     marginLeft: 'auto',
+  },
+  avatarBg: {
+    backgroundColor: '#4c97e0'
   },
 }));
 
@@ -57,10 +62,13 @@ const CardComponent = props => {
   }
   return (
       <Card className={classes.root}>
-        <CardContent>
-        <Typography gutterBottom variant="h5" component="h2">
+        <CardHeader
+          avatar={<Avatar className={classes.avatarBg}>{cardData.title[0]}</Avatar>}
+          title={<Typography gutterBottom variant="h7" component="h5">
           {cardData.title}
-        </Typography>
+        </Typography>}
+          />
+        <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
         {cardData.description}
         </Typography>
