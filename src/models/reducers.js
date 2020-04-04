@@ -4,10 +4,16 @@ const INITIAL_STATE = {
   docByIdData: {},
 }
 
-const setDocumentationListStore = (state, documentationList) => ({
-  ...state,
-  documentationList,
-});
+const setDocumentationListStore = (state, documentationList) => {
+  // const docList = state.documentationList;
+  // const newList = docList.concat(documentationList)
+  // console.log(docList, 'newList', documentationList, 'newList', newList);
+  
+  return {
+    ...state,
+    documentationList,
+  }
+};
 
 const setDocByIdDataStore = (state, docByIdData) => ({
   ...state,

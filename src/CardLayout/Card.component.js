@@ -64,7 +64,7 @@ const CardComponent = props => {
       <Card className={classes.root}>
         <CardHeader
           avatar={<Avatar className={classes.avatarBg}>{cardData.title[0]}</Avatar>}
-          title={<Typography gutterBottom variant="h7" component="h5">
+          title={<Typography gutterBottom variant="h6" component="h5">
           {cardData.title}
         </Typography>}
           />

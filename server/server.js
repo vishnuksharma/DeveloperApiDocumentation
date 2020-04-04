@@ -11,7 +11,7 @@ server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
 server.get('/api/developer/documentation', (req, res) => {
-    // req.body;
+    console.log(req.params);
     try {
       res.status(200).json(db.documentation);
     } catch (error) {

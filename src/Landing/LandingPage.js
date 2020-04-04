@@ -1,12 +1,14 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { Grid, Typography, Box } from '@material-ui/core';
 import CardComponent from '../CardLayout/Card.component';
 
 import { getDocumentationListState, getIsDataLoading } from '../models/selectors'
-import { LANDINGPAGE_HEADING, LANDINGPAGE_DESC } from '../constant';
+import { LANDINGPAGE_HEADING, LANDINGPAGE_DESC } from '../Utilities/constant';
 import LoadingComponent from '../Loading/Loading.component';
+import { isFullPageNotScrolled } from '../Utilities/Utility';
+import { getDocumentationList } from '../api/apiDocument';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,21 +24,57 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(2),
     },
   }));
+
 const LandingPage = props =>{
+  const { isDataLoading, getDocumentListData, documentList } = props;
   const classes = useStyles();
-    const {
-      isDataLoading,
-      getDocumentListData,
-      documentList,
-    } = props;
+  const [listItems, setListItems] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);  
+  
   useEffect(() => {
-    getDocumentListData();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    setListItems(documentList)
+  }, [documentList]);
+
+  useEffect(() => {
+    getDocumentListData()
+  }, []);
+
+  useEffect(() => {
+    if (isFetching) {
+      fetchMoreListItems();
+    }
+  }, [isFetching]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleScroll = () => {
+    if (isFullPageNotScrolled()) return;
+      console.log('Fetch more list items!');
+      setIsFetching(true);
+  
+  };
+
+  const delay = time => new Promise(resolve => setTimeout(()=>resolve(), time))
+  const fetchMoreListItems = async () => {
+    try {
+      const list = await getDocumentationList();
+      await delay(2000)
+      setListItems(prevState => ([...prevState, ...list]));
+      setIsFetching(false);
+    } catch (error) {
+      console.log(error);
+    } finally{
+      setIsFetching(false);
+    }
+  }
 
   const getCardlayout = () => {
-    return (documentList || []).map(item => {
+    return (listItems || []).map(item => {
       return(
-        <Grid key={item.id} item xs={12} sm={6} md={4} lg={4}>
+        <Grid key={(item.id)} item xs={12} sm={6} md={4} lg={4}>
           <CardComponent {...props} cardData={item} />
         </Grid>
       )
@@ -61,6 +99,7 @@ const LandingPage = props =>{
                     ) : (
                     getCardlayout()
                   )}
+                  {isFetching && 'Fetching more list items...'}
                 </Grid>
               </Grid>
             </div>
