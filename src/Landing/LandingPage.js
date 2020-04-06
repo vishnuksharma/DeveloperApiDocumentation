@@ -78,7 +78,7 @@ const LandingPage = props =>{
   const getCardlayout = () => {
     return (listItems || []).map(item => {
       return(
-        <Grid key={(Date.now() * item.id * Math.random())} item xs={12} sm={6} md={4} lg={4}>
+        <Grid key={item.id} item xs={12} sm={6} md={4} lg={4}>
           <CardComponent {...props} cardData={item} />
         </Grid>
       )
