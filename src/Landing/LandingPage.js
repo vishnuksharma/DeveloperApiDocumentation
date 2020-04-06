@@ -1,13 +1,13 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useState, Suspense } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { Grid, Typography, Box } from '@material-ui/core';
 import CardComponent from '../CardLayout/Card.component';
 
 import { getDocumentationListState, getIsDataLoading } from '../models/selectors'
-import { LANDINGPAGE_HEADING, LANDINGPAGE_DESC } from '../Utilities/constant';
+import { LANDINGPAGE_HEADING, LANDINGPAGE_DESC, PAGE_LIMIT } from '../Utilities/constant';
 import LoadingComponent from '../Loading/Loading.component';
-import { isFullPageNotScrolled } from '../Utilities/Utility';
+import { isFullPageNotScrolled, delay } from '../Utilities/Utility';
 import { getDocumentationList } from '../api/apiDocument';
 
 const useStyles = makeStyles((theme) => ({
@@ -30,40 +30,44 @@ const LandingPage = props =>{
   const classes = useStyles();
   const [listItems, setListItems] = useState([]);
   const [isFetching, setIsFetching] = useState(false);  
-  
+  const [count, setCount] = useState(0);
+  const [page, setPage] = useState(1);
+
   useEffect(() => {
-    setListItems(documentList)
+    setCount(documentList.count);
+    setListItems(documentList.documentList);
   }, [documentList]);
-
-  useEffect(() => {
-    getDocumentListData()
-  }, []);
-
-  useEffect(() => {
-    if (isFetching) {
-      fetchMoreListItems();
-    }
-  }, [isFetching]);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const handleScroll = () => {
     if (isFullPageNotScrolled()) return;
-      console.log('Fetch more list items!');
-      setIsFetching(true);
-  
+    setIsFetching(true);
   };
 
-  const delay = time => new Promise(resolve => setTimeout(()=>resolve(), time))
-  const fetchMoreListItems = async () => {
-    try {
-      const list = await getDocumentationList();
-      await delay(2000)
-      setListItems(prevState => ([...prevState, ...list]));
+  useEffect(() => {
+    getDocumentListData();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (isFetching && (count - page * PAGE_LIMIT) > 0) {
+      setPage((pre) => {
+        fetchMoreListItems({ page: pre + 1 });
+        return pre + 1;
+      });
+    } else {
       setIsFetching(false);
+    }
+  }, [isFetching])
+
+  const fetchMoreListItems = async ({ page, limit = PAGE_LIMIT } = {}) => {
+    try {
+      const list = await getDocumentationList(page, limit);
+      await delay(2000)
+      console.log(page, 'page');
+      setListItems((pre) => {
+        return [...pre, ...list.documentList];
+      });
     } catch (error) {
       console.log(error);
     } finally{
@@ -96,10 +100,13 @@ const LandingPage = props =>{
                 <Grid container spacing={2}>
                   {isDataLoading ? (
                     <LoadingComponent />
-                    ) : (
+                  ) : (
                     getCardlayout()
                   )}
-                  {isFetching && 'Fetching more list items...'}
+                  {/* <Suspense fallback={<LoadingComponent />}>
+                    {getCardlayout()}
+                  </Suspense> */}
+                  {isFetching && <LoadingComponent />}
                 </Grid>
               </Grid>
             </div>

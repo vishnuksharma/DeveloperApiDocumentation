@@ -2,13 +2,13 @@ import axios from 'axios';
 
 const apiRoute = '/api/developer';
 const ENDPOINTS = {
-    getDocApi: () => `${apiRoute}/documentation`,
+    getDocApi: (page, limit) => `${apiRoute}/documentation?page=${page}&limit=${limit}`,
     getDocByParams: ({apiName, id}) => `${apiRoute}/${apiName}/${id}`,
 }
 
-export const getDocumentationList = () => {
+export const getDocumentationList = (page = 1, limit = 10) => {
     return new Promise((resolve, reject) => {
-        axios.get(ENDPOINTS.getDocApi())
+        axios.get(ENDPOINTS.getDocApi(page, limit))
         .then(res => {
             resolve(res.data);
         })

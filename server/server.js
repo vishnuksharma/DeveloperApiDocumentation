@@ -10,13 +10,20 @@ const port = process.env.PORT || 4009;
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
-server.get('/api/developer/documentation', (req, res) => {
-    console.log(req.params);
-    try {
-      res.status(200).json(db.documentation);
-    } catch (error) {
-      res.status(300).json(error);
+
+server.get("/api/developer/documentation", (req, res) => {
+  const page = req.query.page || 1;
+  const limit = req.query.limit || 10;
+  const count = db.documentation.length;
+  try {
+    const documentList = db.documentation.slice((page - 1) * limit, limit * page);
+    if (documentList.length <= 0) {
+      throw new Error("No  Record Found");
     }
+    res.status(200).json({ count, documentList });
+  } catch (error) {
+    res.status(300).json({ error: error.message });
+  }
 });
 
 server.get("/api/developer/intro/:id", (req, res) => {

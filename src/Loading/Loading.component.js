@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      height: 450,
+      // height: 450,
       width: '100%',
     },
     progress: {
